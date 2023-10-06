@@ -9,8 +9,8 @@ profile:
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>Ronald Tutor Hall 320</p>
-    <p>University of Southern California</p>
+    <p>sbaruah@usc.edu</p>
+    <p>3710 McClintock Avenue</p>
     <p>Los Angeles, 90089</p>
 
 news: true  # includes a list of news items

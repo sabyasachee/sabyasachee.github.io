@@ -5,6 +5,8 @@
       value: Sabyasachee Baruah
     - name: Date of Birth
       value: 13th January 1994
+    - name: Place of Birth
+      value: Guwahati, India
     - name: Languages
       value: English, Hindi, Assamese
 
@@ -17,6 +19,7 @@
       location: Los Angeles, USA
       department: Computer Science
       description:
+        - Advisor - <a href="https://sail.usc.edu/people/shri.html">Dr. Shrikanth Narayanan</a>
         - Signal Analysis & Interpretation Laboratory
         - Expected Graduation - Summer 2024
         - GPA - 3.95/4
@@ -26,9 +29,16 @@
       year: 2012-2018
       department: Computer Science & Engineering
       description:
+        - Secured 10/10 GPA in second semester
         - CGPA - 9.38/10
+    - title: School
+      institution: Maharishi Vidya Mandir
+      location: Guwahati, India
+      year: 2000-2012
+      description:
+        - Grade 1 to 12
 
-- title: Experience
+- title: Work Experience
   type: time_table
   contents:
     - title: Student Researcher
@@ -37,26 +47,38 @@
       year: May-Aug 2022
       department: Perception Team
       description:
-        - Worked on Multimodal Coreference in English News Videos
+        - Worked on multimodal coreference in English news videos
+        - Designed an annotation interface to label person names of face tracks
     - title: Research Intern
       institution: University of Southern California
       location: Los Angeles, USA
       year: May-July 2016
       description:
         - Developed a regression model for continuous valence and arousal prediction in movie clips
+        - Trained a model on discrete-emotion video clips and used it as the base model for gradient boosting
     - title: Research Intern
       institution: Adobe Big Data Experience Lab
       location: Bengaluru, India
       year: May-July 2015
       description:
+        - Quantified sufficiency, relevance, and coverage of time-series data
         - Designed a ranking and recommendation system of data tables for journalists
 
 - title: Projects
   type: time_table
   contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
+    - title: Character Attribute Extraction
+      year: 2023
+      description: 
+        - Explored different prompting methods on large language models to extract attribute
+          frames of characters from movie screenplays 
+        - <i>submitted to ICASSP 2024</i>
+    - title: <a href="/projects/2_multimodal_coreference">Multimodal Coreference Resolution</a>
+      year: 2022
+      description: 
+        - Developed an annotation interface to label face tracks with coreferring person names
+        - Tested on English news videos of YouTube-8M
+        - <i>Work done as part of Student Research internship at Google</i>
 
 - title: Honors and Awards
   type: time_table
