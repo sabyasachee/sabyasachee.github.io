@@ -79,31 +79,43 @@
         - Developed an annotation interface to label face tracks with coreferring person names
         - Tested on English news videos of YouTube-8M
         - <i>Work done as part of Student Research internship at Google</i>
+    - title: <a href="/projects/1_coreference">Character Coreference Resolution</a>
+      year: 2020-2023
+      description:
+        - Curated a coreference-annotated dataset of movie screenplays
+        - Developed scalable inference approaches to adapt coreference resolution to long documents
+        - Published work at <i>ACL Findings (2020 & 2023)</i>
+    - title: <a href="/projects/3_professions">Media Representation of Professions</a>
+      year: 2022
+      description:
+        - Developed a searchable taxonomy of professions for media content
+        - Analyzed the frequency and sentiment trends of professions over 7 decades and 136K movies and TV-shows
+        - Published work at <i>PLOS ONE (2022)</i> journal
 
-- title: Honors and Awards
-  type: time_table
-  contents:
-    - year: 1921
-      items: 
-        - Nobel Prize in Physics 
-        - Matteucci Medal
-    - year: 2029
-      items: 
-        - Max Planck Medal
+# - title: Honors and Awards
+#   type: time_table
+#   contents:
+#     - year: 1921
+#       items: 
+#         - Nobel Prize in Physics 
+#         - Matteucci Medal
+#     - year: 2029
+#       items: 
+#         - Max Planck Medal
 
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Topic 1.
-      items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
-      items:
-        - Description 1.
-        - Description 2.
+# - title: Academic Interests
+#   type: nested_list
+#   contents:
+#     - title: Topic 1.
+#       items: 
+#         - Description 1.
+#         - Description 2.
+#     - title: Topic 2.
+#       items:
+#         - Description 1.
+#         - Description 2.
 
-- title: Other Interests
-  type: list
-  contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+# - title: Other Interests
+#   type: list
+#   contents:
+#     - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
