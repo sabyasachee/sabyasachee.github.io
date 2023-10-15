@@ -1,0 +1,323 @@
+{
+  "name": "Taxonomy",
+  "children": [
+    {
+      "name": "Management Occupations",
+      "children": [
+        {
+          "name": "administrator.n.03 - someone who manages a government agency or department",
+          "children": [
+            {
+              "name": "administrator"
+            },
+            {
+              "name": "executive"
+            }
+          ]
+        },
+        {
+          "name": "congressman.n.01 - a member of the United States House of Representatives",
+          "children": [
+            {
+              "name": "congressman"
+            },
+            {
+              "name": "congresswoman"
+            },
+            {
+              "name": "representative"
+            }
+          ]
+        },
+        {
+          "name": "director.n.01 - someone who controls resources and expenditures",
+          "children": [
+            {
+              "name": "director"
+            },
+            {
+              "name": "manager"
+            },
+            {
+              "name": "managing director"
+            }
+          ]
+        },
+        {
+          "name": "foreign_minister.n.01 - a government minister for foreign relations",
+          "children": [
+            {
+              "name": "foreign minister"
+            },
+            {
+              "name": "secretary of state"
+            }
+          ]
+        },
+        {
+          "name": "president_of_the_united_states.n.01 - the person who holds the office of head of state of the United States government",
+          "children": [
+            {
+              "name": "president"
+            },
+            {
+              "name": "president of the united states"
+            },
+            {
+              "name": "chief executive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Arts, Design, Entertainment, Sports, and Media Occupations",
+      "children": [
+        {
+          "name": "cameraman.n.01 - a photographer who operates a movie camera",
+          "children": [
+            {
+              "name": "cameraman"
+            },
+            {
+              "name": "cinematographer"
+            }
+          ]
+        },
+        {
+          "name": "coach.n.01 - (sports) someone in charge of training an athlete or a team",
+          "children": [
+            {
+              "name": "coach"
+            },
+            {
+              "name": "manager"
+            }
+          ]
+        },
+        {
+          "name": "comedian.n.01 - a professional performer who tells jokes and performs comical acts",
+          "children": [
+            {
+              "name": "comedian"
+            },
+            {
+              "name": "comic"
+            }
+          ]
+        },
+        {
+          "name": "conductor.n.01 - the person who leads a musical group",
+          "children": [
+            {
+              "name": "conductor"
+            },
+            {
+              "name": "director"
+            }
+          ]
+        },
+        {
+          "name": "film_star.n.01 - a star who plays leading roles in the cinema",
+          "children": [
+            {
+              "name": "film star"
+            },
+            {
+              "name": "movie star"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Healthcare Practitioners and Technical Occupations",
+      "children": [
+        {
+          "name": "analyst.n.03 - a licensed practitioner of psychoanalysis",
+          "children": [
+            {
+              "name": "analyst"
+            }
+          ]
+        },
+        {
+          "name": "baby_doctor.n.01 - a specialist in the care of babies",
+          "children": [
+            {
+              "name": "pediatrician"
+            }
+          ]
+        },
+        {
+          "name": "cardiologist.n.01 - a specialist in cardiology; a specialist in the structure and function and disorders of the heart",
+          "children": [
+            {
+              "name": "cardiologist"
+            }
+          ]
+        },
+        {
+          "name": "doctor.n.01 - a licensed medical practitioner",
+          "children": [
+            {
+              "name": "doctor"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "physician"
+            }
+          ]
+        },
+        {
+          "name": "pharmacist.n.01 - a health professional trained in the art of preparing and dispensing drugs",
+          "children": [
+            {
+              "name": "chemist"
+            },
+            {
+              "name": "pharmacist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Protective Service Occupations",
+      "children": [
+        {
+          "name": "bodyguard.n.01 - someone who escorts and protects a prominent person",
+          "children": [
+            {
+              "name": "bodyguard"
+            },
+            {
+              "name": "escort"
+            }
+          ]
+        },
+        {
+          "name": "captain.n.03 - a policeman in charge of a precinct",
+          "children": [
+            {
+              "name": "captain"
+            },
+            {
+              "name": "police chief"
+            }
+          ]
+        },
+        {
+          "name": "policeman.n.01 - a member of a police force",
+          "children": [
+            {
+              "name": "officer"
+            },
+            {
+              "name": "police officer"
+            },
+            {
+              "name": "policeman"
+            }
+          ]
+        },
+        {
+          "name": "private_detective.n.01 - someone who can be employed as a detective to collect information",
+          "children": [
+            {
+              "name": "operative"
+            },
+            {
+              "name": "private detective"
+            },
+            {
+              "name": "private eye"
+            },
+            {
+              "name": "private investigator"
+            },
+            {
+              "name": "sherlock"
+            }
+          ]
+        },
+        {
+          "name": "watchman.n.01 - a guard who keeps watch",
+          "children": [
+            {
+              "name": "security guard"
+            },
+            {
+              "name": "watcher"
+            },
+            {
+              "name": "watchman"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Transportation and Material Moving Occupations",
+      "children": [
+        {
+          "name": "crewman.n.02 - a member of a flight crew",
+          "children": [
+            {
+              "name": "crew member"
+            },
+            {
+              "name": "crewman"
+            }
+          ]
+        },
+        {
+          "name": "mailman.n.01 - a man who delivers the mail",
+          "children": [
+            {
+              "name": "mailman"
+            },
+            {
+              "name": "postman"
+            }
+          ]
+        },
+        {
+          "name": "master.n.07 - an officer who is licensed to command a merchant ship",
+          "children": [
+            {
+              "name": "captain"
+            },
+            {
+              "name": "skipper"
+            }
+          ]
+        },
+        {
+          "name": "sailor.n.01 - any member of a ship's crew",
+          "children": [
+            {
+              "name": "crewman"
+            },
+            {
+              "name": "sailor"
+            }
+          ]
+        },
+        {
+          "name": "steward.n.03 - an attendant on an airplane",
+          "children": [
+            {
+              "name": "flight attendant"
+            },
+            {
+              "name": "steward"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

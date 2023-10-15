@@ -8,7 +8,7 @@ category: work
 related_publications: baruah-etal-2021-annotation, baruah-narayanan-2023-character
 ---
 
-Coreference resolution is a clustering task that groups together mentions of the same entity or event.
+**Coreference resolution is a clustering task that groups together mentions of the same entity or event.**
 
 Consider the following text.
 
