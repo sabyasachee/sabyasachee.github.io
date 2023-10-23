@@ -5,6 +5,10 @@ description: Can LLMs find character attributes?
 tags: information-extraction question-answering movie-screenplays
 date: 2023-06-24
 featured: true
+# authors:
+#   - name: Sabyasachee Baruah
+#     affiliations:
+#       name: University of Southern California
 ---
 
 **Character attribute extraction is an information extraction task to find attribute frames describing characters.**
@@ -177,5 +181,43 @@ extraction task using a question answering approach.
     </div>
 </div>
 <div class="caption">
-    Example of an attribute frame of the character <i>Alonzo Harris</i> from the movie <i>Training Day</i>
+    Performance of different prompting methods <i>(left)</i> and how it varies with the implicitness of the
+    example <i>(middle)</i>.
+    The <i>right</i> picture shows the results of error analysis.
 </div>
+
+We evaluate the zero-shot, few-shot, and chain-of-thought prompting approaches on 680 examples (~50 examples per
+attribute type).
+
+Two trained human raters check the responses and judge if the predicted attribute value is
+correct.
+An expert adjudicates any disagreements.
+Future work should endeavor to curate a character attribute dataset for a more comprehensive evaluation.
+
+**Few-shot and Chain-of-Thought prompting methods perform better than Zero-shot in attribute extraction** (left 
+picture).
+However, there is no significant difference between the two.
+
+This does not mean that Chain-of-Thought is never useful.
+**Chain-of-Thought approach performs better than Few-shot for hard examples**.
+Our results (middle picture) show that Chain-of-Thought's performance overtakes Few-Shot's as the implicitness 
+increases.
+
+The analysis of errors made by different prompting methods also reveals some interesting trends.
+The *Not-Found* error occurs when the model is unable to find the attribute value and provides a null response even
+though the example describes some relevant attribute value.
+The *Different-Attribute* error occurs when the model finds the attribute value of some attribute type different than
+the queried attribute type.
+**Error analysis shows that Chain-of-Thought prompting makes more *Not-Found* and less *Different-Attribute* errors
+than Few-Shot**.
+
+These results show that Chain-of-Thought might overextend its contextual inference and infer situations not implied
+by the example.
+On average, Chain-of-Thought does not improve performance in the attribute extraction task.
+However, as the examples become more implicit, Chain-of-Thought prompting is more effective than Few-Shot because it 
+allows deeper understanding of the content.
+The results of error analysis also show that Chain-of-Thought is stricter than Few-Shot in providing a response and is
+more faithful to the queried attribute type.
+
+To conclude, an effective prompting approach is to apply Few-Shot prompting for the less implicit examples and change
+to Chain-of-Thought prompting when the examples become more implicit.
