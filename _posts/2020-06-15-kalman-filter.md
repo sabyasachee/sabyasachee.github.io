@@ -43,10 +43,8 @@ $$
 \newcommand{\KK}{K'_{k+1}}
 \newcommand{\var}[1]{E[(#1)(#1)^T]}
 \newcommand{\cvar}[2]{E[(#1)(#1)^T|#2]}
-\newcommand{\aequal}{\quad &= \quad}
-\newcommand{\equal}{\quad = \quad}
-\newcommand{\plus}{\; + \;}
-\newcommand{\minus}{\; - \;}
+\newcommand{\cvarbreak}[2]{\nonumber E[(#1)\\&\quad\quad(#1)^T|#2]}
+\newcommand{\cvarbreaktwo}[2]{\nonumber E[(#1)\\\nonumber &\quad\quad(#1)^T|#2]}
 \newcommand{\argmin}[1]{\underset{#1}{\textit{argmin}}\quad}
 \newcommand{\part}{\frac{\partial}{\partial a_{ij}}}
 $$
@@ -73,8 +71,8 @@ The system is governed by the following equations -
 
 $$
 \begin{aligned}
-\xx &= \F \x \plus \G u_k \plus w_k \\
-\zz &= \H \xx \plus v_{k+1}
+\xx &= \F \x + \G u_k + w_k & \text{(State Equation)} \\
+\zz &= \H \xx + v_{k+1} & \text{(Sensor Equation)}
 \end{aligned}
 $$
 
@@ -143,8 +141,8 @@ $$
 
 $$
 \begin{aligned}
-    \K &= \preP \H^T (\H \preP \H^T + \R)^{-1}\\
-    \postx &= \prex + \K (\zz - \H \prex)\\
+    \K &= \preP \H^T (\H \preP \H^T + \R)^{-1} \\
+    \postx &= \prex + \K (\zz - \H \prex) \\
     \postP &= (I - \K \H) \preP
 \end{aligned}
 $$
@@ -169,6 +167,7 @@ We use those to prove the Kalman Filter equations in section.
 
 $$E[(X + Y)(X + Y)^T] = E[XX^T] + E[YY^T]$$, if $$X$$ and $$Y$$ are uncorrelated, and one of $$E[X]$$ or $$E[Y]$$ is 0.
 
+{% details Proof %}
 **Proof** 
 
 $$X$$ and $$Y$$ are uncorrelated, therefore $$E[XY^T] = E[X]E[Y^T]$$.
@@ -186,11 +185,13 @@ $$
 $$
 
 Therefore $$E[(X + Y)(X + Y)^T] = E[XX^T] + E[YY^T]$$.
+{% enddetails %}
 
 ### Lemma 2
 
 $$\nabla_A \mathbf{Tr}(AB) = B^T$$
 
+{% details Proof %}
 **Proof**
 
 Let $$A = [a]_{n \times p}$$ and $$B = [b]_{p \times n}$$.
@@ -212,11 +213,13 @@ $$
 $$
 
 Therefore $$\nabla_A \mathbf{Tr}(AB) = B^T$$.
+{% enddetails %}
 
 ### Lemma 3
 
 $$\nabla_A \mathbf{Tr}(ABA^T) = A(B + B^T) \overset{B = B^T}{=\joinrel=} 2AB$$
 
+{% details Proof %}
 **Proof**
 
 Let $$A = [a]_{n \times p}$$ and $$B = [b]_{p \times p}$$.
@@ -253,100 +256,113 @@ $$
                                   &= 2AB \quad \text{if } B = B^T
 \end{aligned}
 $$
+{% enddetails %}
 
 ## Proof
+
+**We prove the prediction and update equations of Kalman Filter.**
+
+Let us rewrite the equations governing the discrete-time linear system.
+
+$$
+\begin{align}
+\xx &= \F \x + \G u_k + w_k & \text{(State Equation)} \label{state} \\
+\zz &= \H \xx + v_{k+1} & \text{(Sensor Equation)} \label{sensor}
+\end{align}
+$$
 
 We find $$\prex$$ using the Kalman Filter state equation.
 
 $$
-\begin{aligned}
-    \prex &= E[x_{k+1} | Z_k] \\
-    &= E[\F \x + \G u_k + w_k | Z_k] \qquad \text{(using Eq \ref{eq:state})} \\
-    &= \F E[\x | Z_k] + \G u_k + E[w_k | Z_k] \qquad \text{($$u_k$$ is not random)} \\
-    &= \F E[x_k | Z_k] + \G u_k \qquad (E[w_k] = 0) \\
-    &= \F \hat{x}_{k|k} + \G u_k \qquad \text{(definition of $$\hat{x}_{k|k}$$)} \label{eq:prex}
-\end{aligned}
+\begin{align}
+    \prex   &= E[x_{k+1} | Z_k] \\
+            &= E[\F \x + \G u_k + w_k | Z_k]            & \text{(using Eq \ref{state})} \\
+            &= \F E[\x | Z_k] + \G u_k + E[w_k | Z_k]   & \text{($u_k$ is not random)} \\
+            &= \F E[x_k | Z_k] + \G u_k                 & (E[w_k] = 0) \\
+            &= \F \hat{x}_{k|k} + \G u_k                & \text{(definition of $\hat{x}_{k|k}$)} \label{prex}
+\end{align}
 $$
 
-We substitute $$\prex$$ in the definition of $$\preP$$ using equation \ref{eq:prex}.
+We substitute $$\prex$$ in the definition of $$\preP$$ using equation \ref{prex}.
 
 $$
-\begin{aligned}
-    \preP &= \cvar{\xx - \prex}{Z_k} \\
-    &= \cvar{\F \x + \G u_k + w_k - \F \hat{x}_{k|k} - \G u_k}{Z_k} \\
-    &\qquad \text{(substituting $$\xx$$ and $$\prex$$ using Eq \ref{eq:state} and Eq \ref{eq:prex} resp.)} \\
-    &= \cvar{\F (\x - \hat{x}_{k|k}) + w_k}{Z_k}
-\end{aligned}
+\begin{align}
+    \preP   &= \cvar{\xx - \prex}{Z_k} \\
+            &= \cvar{\F \x + \G u_k + w_k - \F \hat{x}_{k|k} - \G u_k}{Z_k} \\
+            & \qquad  \text{(substituting $\xx$ and $\prex$ using Eq \ref{state} and Eq \ref{prex} resp.)} \\
+            &= \cvar{\F (\x - \hat{x}_{k|k}) + w_k}{Z_k}
+\end{align}
 $$
 
-$$\hat{x}_{k|k} = g(Z_k)$$ for some function $$g$$, and $$w_k$$ is uncorrelated with $$Z_k$$ and $$x_k$$. 
+From definition, we know that $$\hat{x}_{k|k} = g(Z_k)$$ for some function $$g$$, and $$w_k$$ is uncorrelated with 
+$$Z_k$$ and $$x_k$$.
+
 Therefore $$w_k$$ is uncorrelated with $$\F (\x - \hat{x}_{k|k})$$.
-$$E[w_k] = 0$$.
-Therefore, we can use Lemma 1.
+$$E[w_k] = 0$$, and we can use Lemma 1.
 
 $$
-\begin{aligned}
-    \quad \preP &= \cvar{\F (\x - \hat{x}_{k|k}) + w_k}{Z_k} \\
-    &= \F \cvar{\x - \hat{x}_{k|k}}{Z_k} \F^T + E[w_k w_k^T | Z_k] \quad \text{(using Lemma 1)} \\
-    &= \F P_{k|k} \F^T + \Q \qquad \text{(definition of $$P_{k|k}$$ and $$\Q$$)}
-\end{aligned}
+\begin{align}
+    \preP   &= \cvar{\F (\x - \hat{x}_{k|k}) + w_k}{Z_k} \\
+            &= \F \cvar{\x - \hat{x}_{k|k}}{Z_k} \F^T + E[w_k w_k^T | Z_k] & \text{(using Lemma 1)} \\
+            &= \F P_{k|k} \F^T + \Q & \text{(definition of $P_{k|k}$ and $\Q$)}
+\end{align}
 $$
 
-Kalman filter is an unbiased linear optimal estimator. 
-\begin{enumerate}
-    \item \textbf{Unbiased} 
+Kalman filter is an unbiased linear optimal estimator. This implies the following:
+
+1.  **Unbiased** -
     The expected value of an unbiased estimator equals the expected value of the parameter.
     Therefore, $$E[\postx] = E[\xx]$$ and $$E[\hat{x}_{k|k}] = E[\x]$$.
     
-    \item \textbf{Linear}
+2.  **Linear** -
     A linear estimator means it is a linear combination of the observations, which in this case is $$Z_{k+1}$$.
+    
     $$\prex$$ is a function of $$Z_k$$. 
     Therefore let $$\postx = \KK\prex + \K \zz$$, for some matrix $$\KK$$ and $$\K$$.
     
-    \item \textbf{Optimal}
+3.  **Optimal** -
     The estimator minimizes the mean squared error. 
     Therefore, $$\postx = argmin \; E[(\xx - \postx)^T(\xx - \postx) | \ZZ]$$.
-\end{enumerate}
 
 We use these three conditions to find $$\K$$ and $$\KK$$.
 
 $$
-\begin{aligned}
-    E[\xx] &= E[\postx] \qquad \text{($$\postx$$ is unbiased)} \\
-    &= E[\KK\prex + \K \zz] \qquad \text{($$\postx$$ is a linear estimator)} \\
-    &= \KK E[\F \hat{x}_{k|k} + \G u_k] + \K E[\H \xx + v_{k+1}] \\
-    &\text{(substituting $$\zz$$ and $$\prex$$ using Eq \ref{eq:sensor} and Eq \ref{eq:prex} resp.)} \\
-    &= \KK (\F E[\hat{x}_{k|k}] + \G u_k) + \K \H E[\xx] \qquad (E[v_{k+1}] = 0) \\
-    &= \KK (\F E[\x] + \G u_k) + \K \H E[\xx]  \qquad \text{($$\hat{x}_{k|k}$$ is unbiased)} \\
-    &= \KK E[\F x_k + \G u_k + w_k] + \K \H E[\xx] \qquad (E[w_k] = 0) \\
-    &= \KK E[\xx] + \K \H E[\xx] \qquad \text{(using Eq \ref{eq:state})} \\
-    &= (\KK + \K \H) E[\xx] \\
-    \quad I &= \KK + \K \H \\
-    \KK &= I \minus \K \H \label{eq:kdash}
-\end{aligned}
+\begin{align}
+    E[\xx]  &= E[\postx] & \text{($\postx$ is unbiased)} \\
+            &= E[\KK\prex + \K \zz] & \text{($\postx$ is a linear estimator)} \\
+            \nonumber &= \KK E[\F \hat{x}_{k|k} + \G u_k] + \K E[\H \xx + v_{k+1}] \\
+            &\text{(substituting $\zz$ and $\prex$ using Eq \ref{sensor} and Eq \ref{prex} resp.)} \\
+            &= \KK (\F E[\hat{x}_{k|k}] + \G u_k) + \K \H E[\xx] & (E[v_{k+1}] = 0) \\
+            &= \KK (\F E[\x] + \G u_k) + \K \H E[\xx]  & \text{($\hat{x}_{k|k}$ is unbiased)} \\
+            &= \KK E[\F x_k + \G u_k + w_k] + \K \H E[\xx] & (E[w_k] = 0) \\
+            &= \KK E[\xx] + \K \H E[\xx] & \text{(using Eq \ref{state})} \\
+            &= (\KK + \K \H) E[\xx] \\
+    I       &= \KK + \K \H \\
+    \KK     &= I - \K \H \label{kdash}
+\end{align}
 $$
 
 Substituting $$\KK$$ in the expression of $$\postx$$,
 
 $$
-\begin{aligned}
+\begin{align}
     \postx &= \KK \prex + \K \zz \\
-    &= (I \minus \K \H) \prex + \K \zz \qquad \text{(using Eq \ref{eq:kdash})} \\
-    &= \prex + \K (\zz \minus \H \prex) \label{eq:postx}
-\end{aligned}
+    &= (I - \K \H) \prex + \K \zz \text{(using Eq \ref{kdash})} \\
+    &= \prex + \K (\zz - \H \prex) \label{eq:postx}
+\end{align}
 $$
 
-We substitute $$\postx$$ in the definition of $$\postP$$ using equation \ref{eq:postx},
+We substitute $$\postx$$ in the definition of $$\postP$$ using equation \ref{postx},
 
 $$
-\begin{aligned}
-    \postP &= \cvar{\xx - \postx}{Z_{k+1}} \\
-    &= \cvarbreaktwo{\xx - \prex - \K (\zz - \H \prex)}{\ZZ} \\
-    &\qquad \text{(substituting $$\xx$$ using Eq \ref{eq:postx})} \\
-    &= \cvarbreaktwo{\xx - \prex - \K (\H \xx + v_{k+1} - \H \prex)}{\ZZ} \\
-    &\qquad \text{(substituting $$\zz$$ using Eq \ref{eq:sensor})} \\
-    &= \cvarbreak{(I - \K \H) (\xx - \prex) - \K v_{k+1}}{\ZZ}
-\end{aligned}
+\begin{align}
+    \postP  &= \cvar{\xx - \postx}{Z_{k+1}} \\
+            &= \cvarbreaktwo{\xx - \prex - \K (\zz - \H \prex)}{\ZZ} \\
+            & \text{(substituting $\xx$ using Eq \ref{postx})} \\
+            \nonumber &= \cvarbreaktwo{\xx - \prex - \K (\H \xx + v_{k+1} - \H \prex)}{\ZZ} \\
+            & \text{(substituting $\zz$ using Eq \ref{sensor})} \\
+            &= \cvarbreak{(I - \K \H) (\xx - \prex) - \K v_{k+1}}{\ZZ}
+\end{align}
 $$
 
 $$\postx = g(Z_{k+1})$$ for some function $$g$$, and $$v_{k+1}$$ is uncorrelated with $$Z_{k+1}$$ and $$x_{k+1}$$. 
@@ -355,74 +371,75 @@ $$E[v_{k+1}] = 0$$.
 Therefore we can use Lemma 1.
 
 $$
-\begin{aligned}
-    \postP &= \cvarbreak{(I - \K \H) (\xx - \prex) - \K v_{k+1}}{\ZZ} \\
-    &= (I - \K \H) \cvar{\xx - \prex}{\ZZ} \\
-    &\quad\quad (I - \K \H)^T + \K E[v_{k+1} v_{k+1}^T | \ZZ] \K^T \qquad \text{(using Lemma 1)} \\
-    &= (I - \K \H) \preP (I - \K \H)^T + \K \R \K^T \\
-    &\qquad \text{(definition of $$\preP$$ and $$\R$$)} \label{eq:postP}
-\end{aligned}
+\begin{align}
+    \postP  &= \cvarbreak{(I - \K \H) (\xx - \prex) - \K v_{k+1}}{\ZZ} \\
+            &= (I - \K \H) \cvar{\xx - \prex}{\ZZ} \\
+            & (I - \K \H)^T + \K E[v_{k+1} v_{k+1}^T | \ZZ] \K^T \text{(using Lemma 1)} \\
+            &= (I - \K \H) \preP (I - \K \H)^T + \K \R \K^T \\
+            & \text{(definition of $\preP$ and $\R$)} \label{postP}
+\end{align}
 $$
 
-We find $$\K$$ by minimizing the conditional mean squared error of $$\postx$$, $$L = E[(\xx - \postx)^T(\xx - \postx)|\ZZ]$$.
-We express $$L$$ as a trace of $$\postP$$, and use equation \ref{eq:postP} to write it in terms of $$\K$$.
+We find $$\K$$ by minimizing the conditional mean squared error of $$\postx$$, 
+$$L = E[(\xx - \postx)^T(\xx - \postx)|\ZZ]$$.
+We express $$L$$ as a trace of $$\postP$$, and use equation \ref{postP} to write it in terms of $$\K$$.
 We then minimize $$L$$ and find $$\K$$.
 
 $$
-\begin{aligned}
-    L &= E[(\xx - \postx)^T(\xx - \postx) | \ZZ] \\
-    &= \mathbf{Tr}(\cvar{\xx - \postx}{\ZZ}) \\
-    &= \mathbf{Tr}(\postP) \qquad \text{(definition of $$\postP$$)} \\
-    &= \mathbf{Tr}((I - \K \H) \preP (I - \K \H)^T + \K \R K^T) \quad \text{(using Eq \ref{eq:postP})} \\
-    &= \mathbf{Tr}(\; \preP  - \preP \H^T \K^T - \K \H \preP \\
-    &\qquad + \K \H \preP \H^T \K^T + \K \R \K^T) \\
-    &= \mathbf{Tr}(\preP) \minus \mathbf{Tr}(\preP \H^T \K^T) \minus \mathbf{Tr}(\K \H \preP) \\
-    &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) \qquad \text{($$\mathbf{Tr}$$ is a linear operator)} \\
-    &= \mathbf{Tr}(\preP) \minus \mathbf{Tr}(\K \H \preP) \minus \mathbf{Tr}(\K \H \preP) \\
-    &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) \qquad (\mathbf{Tr}(A) = \mathbf{Tr}(A^T)) \\
-    &= \mathbf{Tr}(\preP) - 2 \; \mathbf{Tr}(\K \H \preP) + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) \label{eq:loss}
-\end{aligned}
+\begin{align}
+    L   &= E[(\xx - \postx)^T(\xx - \postx) | \ZZ] \\
+        &= \mathbf{Tr}(\cvar{\xx - \postx}{\ZZ}) \\
+        &= \mathbf{Tr}(\postP) \qquad \text{(definition of $\postP$)} \\
+        &= \mathbf{Tr}((I - \K \H) \preP (I - \K \H)^T + \K \R K^T) \quad \text{(using Eq \ref{postP})} \\
+        &= \mathbf{Tr}(\; \preP  - \preP \H^T \K^T - \K \H \preP \\
+        &\qquad + \K \H \preP \H^T \K^T + \K \R \K^T) \\
+        &= \mathbf{Tr}(\preP) - \mathbf{Tr}(\preP \H^T \K^T) - \mathbf{Tr}(\K \H \preP) \\
+        &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) \qquad \text{($\mathbf{Tr}$ is a linear operator)} \\
+        &= \mathbf{Tr}(\preP) - \mathbf{Tr}(\K \H \preP) - \mathbf{Tr}(\K \H \preP) \\
+        &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) \qquad (\mathbf{Tr}(A) = \mathbf{Tr}(A^T)) \\
+        &= \mathbf{Tr}(\preP) - 2 \; \mathbf{Tr}(\K \H \preP) + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) \label{loss}
+\end{align}
 $$
 
 Taking the gradient of $$L$$ with respect to $$\K$$ and setting it equal to 0,
 
 $$
-\begin{aligned}
+\begin{align}
     \nabla_{\K} L &= 0 \\
     0 &= \nabla_{\K}\; (\mathbf{Tr}(\K (\H \preP \H^T + \R) \K^T) \\
-    &\qquad \minus 2\; \mathbf{Tr}(\K \H \preP) + \mathbf{Tr}(\preP)) \qquad \text{(using Eq \ref{eq:loss})} \\
-    &= \nabla_{\K}\; (\mathbf{Tr}(\K (\H \preP \H^T + \R) \K^T) \minus 2\; \mathbf{Tr}(\K \H \preP)) \\
-    &= 2\;\K (\H \preP \H^T + \R) \minus 2\; \preP \H^T \quad \text{(using Lemma 2 and 3)} \\
-    \therefore\quad \K &= \preP \H^T (\H \preP \H^T + \R)^{-1} \label{eq:kgain}
-\end{aligned}
+    &\qquad - 2\; \mathbf{Tr}(\K \H \preP) + \mathbf{Tr}(\preP)) \qquad \text{(using Eq \ref{loss})} \\
+    &= \nabla_{\K}\; (\mathbf{Tr}(\K (\H \preP \H^T + \R) \K^T) - 2\; \mathbf{Tr}(\K \H \preP)) \\
+    &= 2\;\K (\H \preP \H^T + \R) - 2\; \preP \H^T \quad \text{(using Lemma 2 and 3)} \\
+    \therefore\quad \K &= \preP \H^T (\H \preP \H^T + \R)^{-1} \label{kgain}
+\end{align}
 $$
 
-We can simplify the expression of $$\postP$$ in equation \ref{eq:postP} using equation \ref{eq:kgain}.
+We can simplify the expression of $$\postP$$ in equation \ref{postP} using equation \ref{kgain}.
 
 $$
-\begin{aligned}
-    \postP &= (I - \K \H) \preP (I - \K \H)^T + \K \R \K^T \\
-    &= \preP \minus \preP \H^T \K^T \minus \K \H \preP \\
-    &\quad + \K \H \preP \H^T \K^T + \K \R \K^T \\
-    &= \preP \minus \preP \H^T \K^T \minus \K \H \preP \\
-    &\quad + \K (\H \preP \H^T + \R) \K^T \\
-    &= \preP \minus \preP \H^T \K^T \minus \K \H \preP \\
-    &\quad + \preP \H^T (\H \preP \H^T + \R)^{-1} (\H \preP \H^T + \R) \K^T \\
-    &\qquad \text{(substituing $$\K$$ using Eq \ref{eq:kgain})} \\
-    &= \preP \minus \preP \H^T \K^T \minus \K \H \preP + \preP \H^T \K^T \\
-    &= \preP \minus \K \H \preP \\
-    &= (I - \K \H) \preP
-\end{aligned}
+\begin{align}
+    \postP  &= (I - \K \H) \preP (I - \K \H)^T + \K \R \K^T \\
+            &= \preP - \preP \H^T \K^T - \K \H \preP \\
+            &\quad + \K \H \preP \H^T \K^T + \K \R \K^T \\
+            &= \preP - \preP \H^T \K^T - \K \H \preP \\
+            &\quad + \K (\H \preP \H^T + \R) \K^T \\
+            &= \preP - \preP \H^T \K^T - \K \H \preP \\
+            &\quad + \preP \H^T (\H \preP \H^T + \R)^{-1} (\H \preP \H^T + \R) \K^T \\
+            &\qquad \text{(substituing $\K$ using Eq \ref{kgain})} \\
+            &= \preP - \preP \H^T \K^T - \K \H \preP + \preP \H^T \K^T \\
+            &= \preP - \K \H \preP \\
+            &= (I - \K \H) \preP
+\end{align}
 $$
 
 Arranging all results together,
 
 $$
-\begin{aligned}
-    \prex &= \F \hat{x}_{k|k} + \G u_k  \\
-    \preP &= \F P_{k|k} \F^T + \Q  \\
-    \K &= \preP \H^T (\H \preP \H^T + \R)^{-1} \\
-    \postx &= \prex + \K (\zz \minus \H \prex) \\
-    \postP &= (I \minus \K \H) \preP
-\end{aligned}
+\begin{align}
+    \prex   &= \F \hat{x}_{k|k} + \G u_k  \\
+    \preP   &= \F P_{k|k} \F^T + \Q  \\
+    \K      &= \preP \H^T (\H \preP \H^T + \R)^{-1} \\
+    \postx  &= \prex + \K (\zz - \H \prex) \\
+    \postP  &= (I - \K \H) \preP
+\end{align}
 $$
