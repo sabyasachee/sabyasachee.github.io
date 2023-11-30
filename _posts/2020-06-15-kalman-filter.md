@@ -43,7 +43,7 @@ $$
 \newcommand{\KK}{K'_{k+1}}
 \newcommand{\var}[1]{E[(#1)(#1)^T]}
 \newcommand{\cvar}[2]{E[(#1)(#1)^T|#2]}
-\newcommand{\cvarbreak}[2]{\nonumber E[(#1)\\&\quad\quad(#1)^T|#2]}
+\newcommand{\cvarbreak}[2]{\nonumber E[(#1)\\&\nonumber\quad\quad(#1)^T|#2]}
 \newcommand{\cvarbreaktwo}[2]{\nonumber E[(#1)\\\nonumber &\quad\quad(#1)^T|#2]}
 \newcommand{\argmin}[1]{\underset{#1}{\textit{argmin}}\quad}
 \newcommand{\part}{\frac{\partial}{\partial a_{ij}}}
@@ -170,7 +170,7 @@ $$E[(X + Y)(X + Y)^T] = E[XX^T] + E[YY^T]$$, if $$X$$ and $$Y$$ are uncorrelated
 {% details Proof %}
 **Proof** 
 
-$$X$$ and $$Y$$ are uncorrelated, therefore $$E[XY^T] = E[X]E[Y^T]$$.
+$$X$$ and $$Y$$ are uncorrelated, therefore $$E[XY^T] = E[X]E[Y^T]$$. <br>
 One of $$E[X]$$ or $$E[Y]$$ equals 0, therefore $$E[XY^T] = 0$$.
 
 Similarly, $$E[YX^T] = 0$$.
@@ -217,7 +217,7 @@ Therefore $$\nabla_A \mathbf{Tr}(AB) = B^T$$.
 
 ### Lemma 3
 
-$$\nabla_A \mathbf{Tr}(ABA^T) = A(B + B^T) \overset{B = B^T}{=\joinrel=} 2AB$$
+$$\nabla_A \mathbf{Tr}(ABA^T) = A(B + B^T) \overset{B = B^T}{=} 2AB$$
 
 {% details Proof %}
 **Proof**
@@ -275,10 +275,10 @@ We find $$\prex$$ using the Kalman Filter state equation.
 
 $$
 \begin{align}
-    \prex   &= E[x_{k+1} | Z_k] \\
-            &= E[\F \x + \G u_k + w_k | Z_k]            & \text{(using Eq \ref{state})} \\
-            &= \F E[\x | Z_k] + \G u_k + E[w_k | Z_k]   & \text{($u_k$ is not random)} \\
-            &= \F E[x_k | Z_k] + \G u_k                 & (E[w_k] = 0) \\
+    \nonumber \prex   &= E[x_{k+1} | Z_k] \\
+    \nonumber         &= E[\F \x + \G u_k + w_k | Z_k]            & \text{(using Eq \ref{state})} \\
+    \nonumber         &= \F E[\x | Z_k] + \G u_k + E[w_k | Z_k]   & \text{($u_k$ is not random)} \\
+    \nonumber         &= \F E[x_k | Z_k] + \G u_k                 & (E[w_k] = 0) \\
             &= \F \hat{x}_{k|k} + \G u_k                & \text{(definition of $\hat{x}_{k|k}$)} \label{prex}
 \end{align}
 $$
@@ -287,10 +287,10 @@ We substitute $$\prex$$ in the definition of $$\preP$$ using equation \ref{prex}
 
 $$
 \begin{align}
-    \preP   &= \cvar{\xx - \prex}{Z_k} \\
-            &= \cvarbreaktwo{\F \x + \G u_k + w_k - \F \hat{x}_{k|k} - \G u_k}{Z_k} \\
-            & \qquad  \text{(substituting $\xx$ and $\prex$ using Eq \ref{state} and Eq \ref{prex} resp.)} \\
-            &= \cvar{\F (\x - \hat{x}_{k|k}) + w_k}{Z_k}
+    \nonumber \preP   &= \cvar{\xx - \prex}{Z_k} \\
+    \nonumber         &= \cvarbreaktwo{\F \x + \G u_k + w_k - \F \hat{x}_{k|k} - \G u_k}{Z_k} \\
+    \nonumber         & \qquad  \text{(substituting $\xx$ and $\prex$ using Eq \ref{state} and Eq \ref{prex} resp.)} \\
+    \nonumber         &= \cvar{\F (\x - \hat{x}_{k|k}) + w_k}{Z_k}
 \end{align}
 $$
 
@@ -302,9 +302,9 @@ $$E[w_k] = 0$$, and we can use Lemma 1.
 
 $$
 \begin{align}
-    \preP   &= \cvar{\F (\x - \hat{x}_{k|k}) + w_k}{Z_k} \\
-            &= \F \cvar{\x - \hat{x}_{k|k}}{Z_k} \F^T + E[w_k w_k^T | Z_k] & \text{(using Lemma 1)} \\
-            &= \F P_{k|k} \F^T + \Q & \text{(definition of $P_{k|k}$ and $\Q$)}
+    \nonumber \preP   &= \cvar{\F (\x - \hat{x}_{k|k}) + w_k}{Z_k} \\
+    \nonumber         &= \F \cvar{\x - \hat{x}_{k|k}}{Z_k} \F^T + E[w_k w_k^T | Z_k] & \text{(using Lemma 1)} \\
+    \nonumber         &= \F P_{k|k} \F^T + \Q & \text{(definition of $P_{k|k}$ and $\Q$)}
 \end{align}
 $$
 
@@ -328,16 +328,16 @@ We use these three conditions to find $$\K$$ and $$\KK$$.
 
 $$
 \begin{align}
-    E[\xx]  &= E[\postx] & \text{($\postx$ is unbiased)} \\
-            &= E[\KK\prex + \K \zz] & \text{($\postx$ is a linear estimator)} \\
-            \nonumber &= \KK E[\F \hat{x}_{k|k} + \G u_k] + \K E[\H \xx + v_{k+1}] \\
-            &\qquad \text{(substituting $\zz$ and $\prex$ using Eq \ref{sensor} and Eq \ref{prex} resp.)} \\
-            &= \KK (\F E[\hat{x}_{k|k}] + \G u_k) + \K \H E[\xx] & (E[v_{k+1}] = 0) \\
-            &= \KK (\F E[\x] + \G u_k) + \K \H E[\xx]  & \text{($\hat{x}_{k|k}$ is unbiased)} \\
-            &= \KK E[\F x_k + \G u_k + w_k] + \K \H E[\xx] & (E[w_k] = 0) \\
-            &= \KK E[\xx] + \K \H E[\xx] & \text{(using Eq \ref{state})} \\
-            &= (\KK + \K \H) E[\xx] \\
-    I       &= \KK + \K \H \\
+    \nonumber E[\xx]  &= E[\postx] & \text{($\postx$ is unbiased)} \\
+    \nonumber         &= E[\KK\prex + \K \zz] & \text{($\postx$ is a linear estimator)} \\
+    \nonumber         \nonumber &= \KK E[\F \hat{x}_{k|k} + \G u_k] + \K E[\H \xx + v_{k+1}] \\
+    \nonumber         &\qquad \text{(substituting $\zz$ and $\prex$ using Eq \ref{sensor} and Eq \ref{prex} resp.)} \\
+    \nonumber         &= \KK (\F E[\hat{x}_{k|k}] + \G u_k) + \K \H E[\xx] & (E[v_{k+1}] = 0) \\
+    \nonumber         &= \KK (\F E[\x] + \G u_k) + \K \H E[\xx]  & \text{($\hat{x}_{k|k}$ is unbiased)} \\
+    \nonumber         &= \KK E[\F x_k + \G u_k + w_k] + \K \H E[\xx] & (E[w_k] = 0) \\
+    \nonumber         &= \KK E[\xx] + \K \H E[\xx] & \text{(using Eq \ref{state})} \\
+    \nonumber         &= (\KK + \K \H) E[\xx] \\
+    \nonumber I       &= \KK + \K \H \\
     \KK     &= I - \K \H \label{kdash}
 \end{align}
 $$
@@ -346,8 +346,8 @@ Substituting $$\KK$$ in the expression of $$\postx$$,
 
 $$
 \begin{align}
-    \postx  &= \KK \prex + \K \zz \\
-            &= (I - \K \H) \prex + \K \zz & \text{(using Eq \ref{kdash})} \\
+    \nonumber \postx  &= \KK \prex + \K \zz \\
+    \nonumber         &= (I - \K \H) \prex + \K \zz & \text{(using Eq \ref{kdash})} \\
             &= \prex + \K (\zz - \H \prex) \label{postx}
 \end{align}
 $$
@@ -356,12 +356,12 @@ We substitute $$\postx$$ in the definition of $$\postP$$ using equation \ref{pos
 
 $$
 \begin{align}
-    \postP  &= \cvar{\xx - \postx}{Z_{k+1}} \\
-            &= \cvarbreaktwo{\xx - \prex - \K (\zz - \H \prex)}{\ZZ} \\
-            &\qquad \text{(substituting $\xx$ using Eq \ref{postx})} \\
-            \nonumber &= \cvarbreaktwo{\xx - \prex - \K (\H \xx + v_{k+1} - \H \prex)}{\ZZ} \\
-            &\qquad \text{(substituting $\zz$ using Eq \ref{sensor})} \\
-            &= \cvarbreak{(I - \K \H) (\xx - \prex) - \K v_{k+1}}{\ZZ}
+    \nonumber \postP  &= \cvar{\xx - \postx}{Z_{k+1}} \\
+             &= \cvarbreaktwo{\xx - \prex - \K (\zz - \H \prex)}{\ZZ} \\
+    \nonumber         &\qquad \text{(substituting $\xx$ using Eq \ref{postx})} \\
+             &= \cvarbreaktwo{\xx - \prex - \K (\H \xx + v_{k+1} - \H \prex)}{\ZZ} \\
+    \nonumber         &\qquad \text{(substituting $\zz$ using Eq \ref{sensor})} \\
+             &= \cvarbreak{(I - \K \H) (\xx - \prex) - \K v_{k+1}}{\ZZ}
 \end{align}
 $$
 
@@ -372,11 +372,11 @@ Therefore we can use Lemma 1.
 
 $$
 \begin{align}
-    \postP  &= \cvarbreak{(I - \K \H) (\xx - \prex) - \K v_{k+1}}{\ZZ} \\
-            &= (I - \K \H) \cvar{\xx - \prex}{\ZZ} \\
-            &= (I - \K \H)^T + \K E[v_{k+1} v_{k+1}^T | \ZZ] \K^T & \text{(using Lemma 1)} \\
-            \nonumber &= (I - \K \H) \preP (I - \K \H)^T + \K \R \K^T \\
-            &\qquad \text{(definition of $\preP$ and $\R$)} \label{postP}
+    \nonumber \postP  &= \cvarbreak{(I - \K \H) (\xx - \prex) - \K v_{k+1}}{\ZZ} \\
+    \nonumber         &= (I - \K \H) \cvar{\xx - \prex}{\ZZ} \\
+    \nonumber         &= (I - \K \H)^T + \K E[v_{k+1} v_{k+1}^T | \ZZ] \K^T & \text{(using Lemma 1)} \\
+    \nonumber         \nonumber &= (I - \K \H) \preP (I - \K \H)^T + \K \R \K^T \\
+          &\qquad \text{(definition of $\preP$ and $\R$)} \label{postP}
 \end{align}
 $$
 
@@ -388,17 +388,17 @@ We then minimize $$L$$ and find $$\K$$.
 
 $$
 \begin{align}
-    L   &= E[(\xx - \postx)^T(\xx - \postx) | \ZZ] \\
-        &= \mathbf{Tr}(\cvar{\xx - \postx}{\ZZ}) \\
-        &= \mathbf{Tr}(\postP) & \text{(definition of $\postP$)} \\
-        &= \mathbf{Tr}((I - \K \H) \preP (I - \K \H)^T + \K \R K^T) & \text{(using Eq \ref{postP})} \\
-        &= \nonumber \mathbf{Tr}(\; \preP  - \preP \H^T \K^T - \K \H \preP \\
-        &\qquad + \K \H \preP \H^T \K^T + \K \R \K^T) \\
-        &= \nonumber \mathbf{Tr}(\preP) - \mathbf{Tr}(\preP \H^T \K^T) - \mathbf{Tr}(\K \H \preP) \\
-        &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) & \text{($\mathbf{Tr}$ is a linear operator)} \\
-        &= \nonumber \mathbf{Tr}(\preP) - \mathbf{Tr}(\K \H \preP) - \mathbf{Tr}(\K \H \preP) \\
-        &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) & (\mathbf{Tr}(A) = \mathbf{Tr}(A^T)) \\
-        &= \nonumber \mathbf{Tr}(\preP) - 2 \; \mathbf{Tr}(\K \H \preP) \\
+    \nonumber L   &= E[(\xx - \postx)^T(\xx - \postx) | \ZZ] \\
+    \nonumber     &= \mathbf{Tr}(\cvar{\xx - \postx}{\ZZ}) \\
+    \nonumber     &= \mathbf{Tr}(\postP) & \text{(definition of $\postP$)} \\
+    \nonumber     &= \mathbf{Tr}((I - \K \H) \preP (I - \K \H)^T + \K \R K^T) & \text{(using Eq \ref{postP})} \\
+    \nonumber     &= \mathbf{Tr}(\; \preP  - \preP \H^T \K^T - \K \H \preP \\
+    \nonumber     &\qquad + \K \H \preP \H^T \K^T + \K \R \K^T) \\
+    \nonumber     &= \mathbf{Tr}(\preP) - \mathbf{Tr}(\preP \H^T \K^T) - \mathbf{Tr}(\K \H \preP) \\
+    \nonumber     &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) & \text{($\mathbf{Tr}$ is a linear operator)} \\
+    \nonumber     &= \mathbf{Tr}(\preP) - \mathbf{Tr}(\K \H \preP) - \mathbf{Tr}(\K \H \preP) \\
+    \nonumber     &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) & (\mathbf{Tr}(A) = \mathbf{Tr}(A^T)) \\
+    \nonumber     &= \mathbf{Tr}(\preP) - 2 \; \mathbf{Tr}(\K \H \preP) \\
         &\qquad + \mathbf{Tr}(\; \K (\H \preP \H^T + \R) \K^T) \label{loss}
 \end{align}
 $$
@@ -407,12 +407,12 @@ Taking the gradient of $$L$$ with respect to $$\K$$ and setting it equal to 0,
 
 $$
 \begin{align}
-    \nabla_{\K} L   &= 0 \\
+    \nonumber \nabla_{\K} L   &= 0 \\
     \nonumber 0     &= \nabla_{\K}\; (\mathbf{Tr}(\K (\H \preP \H^T + \R) \K^T) \\
-                    &\qquad - 2\; \mathbf{Tr}(\K \H \preP) + \mathbf{Tr}(\preP)) & \text{(using Eq \ref{loss})} \\
+    \nonumber                 &\qquad - 2\; \mathbf{Tr}(\K \H \preP) + \mathbf{Tr}(\preP)) & \text{(using Eq \ref{loss})} \\
     \nonumber       &= \nabla_{\K}\; (\mathbf{Tr}(\K (\H \preP \H^T + \R) \K^T) \\
-                    &\qquad - 2\; \mathbf{Tr}(\K \H \preP)) \\
-                    &= 2\;\K (\H \preP \H^T + \R) - 2\; \preP \H^T & \text{(using Lemma 2 and 3)} \\
+    \nonumber                 &\qquad - 2\; \mathbf{Tr}(\K \H \preP)) \\
+    \nonumber                 &= 2\;\K (\H \preP \H^T + \R) - 2\; \preP \H^T & \text{(using Lemma 2 and 3)} \\
     \therefore\quad \K &= \preP \H^T (\H \preP \H^T + \R)^{-1} \label{kgain}
 \end{align}
 $$
@@ -421,17 +421,17 @@ We can simplify the expression of $$\postP$$ in equation \ref{postP} using equat
 
 $$
 \begin{align}
-    \postP  &= (I - \K \H) \preP (I - \K \H)^T + \K \R \K^T \\
-            \nonumber &= \preP - \preP \H^T \K^T - \K \H \preP \\
-            &\quad + \K \H \preP \H^T \K^T + \K \R \K^T \\
-            \nonumber &= \preP - \preP \H^T \K^T - \K \H \preP \\
-            &\quad + \K (\H \preP \H^T + \R) \K^T \\
-            \nonumber &= \preP - \preP \H^T \K^T - \K \H \preP \\
-            \nonumber &\quad + \preP \H^T (\H \preP \H^T + \R)^{-1} (\H \preP \H^T + \R) \K^T \\
-            &\qquad \text{(substituing $\K$ using Eq \ref{kgain})} \\
-            &= \preP - \preP \H^T \K^T - \K \H \preP + \preP \H^T \K^T \\
-            &= \preP - \K \H \preP \\
-            &= (I - \K \H) \preP
+    \nonumber \postP  &= (I - \K \H) \preP (I - \K \H)^T + \K \R \K^T \\
+    \nonumber         &= \preP - \preP \H^T \K^T - \K \H \preP \\
+    \nonumber         &\quad + \K \H \preP \H^T \K^T + \K \R \K^T \\
+    \nonumber         &= \preP - \preP \H^T \K^T - \K \H \preP \\
+    \nonumber         &\quad + \K (\H \preP \H^T + \R) \K^T \\
+    \nonumber         &= \preP - \preP \H^T \K^T - \K \H \preP \\
+    \nonumber         &\quad + \preP \H^T (\H \preP \H^T + \R)^{-1} (\H \preP \H^T + \R) \K^T \\
+    \nonumber         &\qquad \text{(substituing $\K$ using Eq \ref{kgain})} \\
+    \nonumber         &= \preP - \preP \H^T \K^T - \K \H \preP + \preP \H^T \K^T \\
+    \nonumber         &= \preP - \K \H \preP \\
+    \nonumber         &= (I - \K \H) \preP
 \end{align}
 $$
 
