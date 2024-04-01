@@ -9,6 +9,7 @@ featured: true
 #   - name: Sabyasachee Baruah
 #     affiliations:
 #       name: University of Southern California
+related_publications: 10447353
 ---
 
 **Character attribute extraction is an information extraction task to find attribute frames describing characters.**
