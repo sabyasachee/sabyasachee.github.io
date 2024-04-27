@@ -23,9 +23,9 @@ I am a Ph.D. candidate in the [Signal Analysis & Interpretation Laboratory](http
 advisement of [Dr. Shrikanth Narayanan](https://sail.usc.edu/people/shri.html), in the Computer Science Department
 of the University of Southern California.
 
-My research interests lie in __narrative understanding__ :books:.
+My research interests lie in __narrative understanding__ :books: and __long context modeling__.
 
-I aim to use computational tools to study how a story is told, why some stories appeal more to us than others,
+I aim to use computational tools to study how a story is told, why some stories appeal more to us,
 and aid creators to weave _better_ stories.
 I have worked in coreference resolution, affective computing, and information extraction.
 

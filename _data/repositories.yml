@@ -1,12 +1,8 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - sabyasachee
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - usc-sail/mica-character-coref
+  - usc-sail/mica-character-attribute-extraction
+  - usc-sail/mica-screenplay-parser
+  - sabyasachee/mica-profession

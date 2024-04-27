@@ -21,7 +21,7 @@
       description:
         - Advisor - <a href="https://sail.usc.edu/people/shri.html">Dr. Shrikanth Narayanan</a>
         - Signal Analysis & Interpretation Laboratory
-        - Expected Graduation - Summer 2024
+        - Expected Graduation - Dec 2024 (Fall)
         - GPA - 3.95/4
     - title: Bachelors & Masters
       institution: Indian Institute of Technology Kharagpur
@@ -67,12 +67,12 @@
 - title: Projects
   type: time_table
   contents:
-    - title: Character Attribute Extraction
+    - title: <a href="/blog/2023/attribute-extraction/">Character Attribute Extraction</a>
       year: 2023
       description: 
         - Explored different prompting methods on large language models to extract attribute
           frames of characters from movie screenplays 
-        - <i>submitted to ICASSP 2024</i>
+        - Published work at <i>ICASSP 2024</i>
     - title: <a href="/projects/2_multimodal_coreference">Multimodal Coreference Resolution</a>
       year: 2022
       description: 
